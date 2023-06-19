@@ -1,6 +1,6 @@
 const router = require('express').Router();
 //import models (user in particular)
-const User = require('../../models')
+const User = require('../../models/User')
 
 router.post('/signup', async (req, res) => {
     try {
@@ -8,13 +8,12 @@ router.post('/signup', async (req, res) => {
             username: req.body.username,
             password: req.body.password
         })
-        alert('User Created')
         req.session.save(() => {
             req.session.loggedin = true;
             req.session.user_id = newUser.id,
             req.session.username = newUser.username
         })
-
+        res.redirect('/')
     }
     catch (err) {
         console.log(err)
@@ -37,13 +36,12 @@ router.post('/login', async (req, res) => {
         if(!validPassword) {
             res.status(500).json({message: "invalid username or password"})
         }
-        alert('Logged in!')
         req.session.save(() => {
             req.session.loggedin = true;
-            req.session.user_id = newUser.id,
-            req.session.username = newUser.username
+            req.session.user_id = user.id,
+            req.session.username = user.username
         })
-
+        res.redirect('/')
     }
     catch (err) {
         console.log(err)

@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 3001;
 
 const hbs = exphbs.create({helpers});
 
-
 const sess = {
     secret: 'Bubble Dream',
     cookie: {},
@@ -27,9 +26,6 @@ const sess = {
 app.use(session(sess));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
-
-
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');

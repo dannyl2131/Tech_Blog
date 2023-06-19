@@ -3,16 +3,15 @@ const router = require('express').Router();
 const withAuth = require('../utils/auth');
 
 router.get('/', (req,res) => {
-    res.render('home');
+    res.render('home', {isMainPage: true, loggedin: req.session.loggedin});
 })
 
 router.get('/login', (req, res) => {
-    res.render('home', {
-        helpers: {
-            isLoginPage() {return document.location.pathname == '/login'},
-            isTrue() {return true}
-        }
-    })
+    if(req.session.loggedin){
+        res.render('home', {isMainPage: true, loggedin: req.session.loggedin});
+    } else{
+    res.render('home', {isLoginPage: true})
+    }
 })
 
 module.exports = router;
